@@ -15,13 +15,13 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
-        
-        for ($i = 0, $categories=[]; $i < self::NB_CATEGORY; $i++) {
+
+        for ($i = 0, $categories = []; $i < self::NB_CATEGORY; $i++) {
             $category = new Category();
             $category
                 ->setName($faker->word())
                 ->setDescription($faker->realTextBetween(100, 200));
-            $categories[]=$category;
+            $categories[] = $category;
 
             $manager->persist($category);
         }
@@ -33,7 +33,7 @@ class AppFixtures extends Fixture
                 ->setDateCreated($faker->dateTimeBetween('-2 years'))
                 ->setVisible($faker->boolean(80))
                 ->setContent($faker->realTextBetween(200, 500))
-                ->setCategory(($categories[$faker->numberBetween(0,count($categories)-1)]));
+                ->setCategory(($categories[$faker->numberBetween(0, count($categories) - 1)]));
 
             $manager->persist($article);
         }
