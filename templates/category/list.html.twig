@@ -29,14 +29,14 @@
 				{# {{dump(category)}} #}
 				<li>
 					Nom :
-					<a href="categories/{{ category.id }}">{{ category.name|capitalize }}</a>
-					
-					- 
-					Nombre d'articles dans cette catégorie :
-					{# différentes méthodes possibles : #}
+					<a href="{{ path('category_item', { id: category.id }) }}">{{ category.name|capitalize }}</a>
+					-
+					{{category.articles|length}}
+					articles dans cette catégorie.
+				{# différentes méthodes possibles : #}
 					{# {{category.articles.count()}} #}
 					{# {{category.articles.count}} #}
-					{{category.articles|length}}
+
 				</li>
 			{% endfor %}
 		</ul>

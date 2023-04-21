@@ -19,11 +19,11 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/categories/{id}', 'category_item')]
+    #[Route('/categories/{id}', name: 'category_item')]
     public function item(Category $category): Response {
         return $this->render(
             'category/item.html.twig',
-            ['category' => $category],
+            ['category' => $category]
         );
     }
 }
