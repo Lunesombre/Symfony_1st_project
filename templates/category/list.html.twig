@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Willkommen to ze categoriz!
+{% endblock %}
+
+{% block navbar %}
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	<div class="example-wrapper">
+		<h1>Catégories</h1>
+		<ul>
+			{# {{dump(categories)}} #}
+			{% for category in categories %}
+				{# {{dump(category)}} #}
+				<li>
+					Nom :
+					<a href="categories/{{ category.id }}">{{ category.name|capitalize }}</a>
+					
+					- 
+					Nombre d'articles dans cette catégorie :
+					{# différentes méthodes possibles : #}
+					{# {{category.articles.count()}} #}
+					{# {{category.articles.count}} #}
+					{{category.articles|length}}
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %}
