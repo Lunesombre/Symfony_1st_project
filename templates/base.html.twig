@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -18,8 +19,7 @@
 	</head>
 	<body>
 		{% block navbar %}
-			<a href="/">Index</a>
-			<a href="/categories">Catégories</a>
+        {% include "navbar.html.twig" %}
 		{% endblock %}
 		{% block body %}{% endblock %}
 	</body>
