@@ -5,17 +5,21 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Catégorie :
-		{{category.name|upper}}</h1>
-	<h2>Les articles de cette catégorie sont :</h2>
-	<ul>
-		{# {{ dump(category) }} #}
-		{% for articles in category.articles %}
-			<li>
-				<a href="{{ path('article_item', { id:articles.id }) }}">
-					{{ articles.title|capitalize }}</a> - date de rédaction : {{ articles.dateCreated|date('d/m/Y') }}
-					{# il récupère automatiquement le getter de date_created qui s'appelle dateCreated, et on lui met le filtre |date avec ses paramètres #}
-			</li>
-		{% endfor %}
-	</ul>
+	<div class="bg-success-subtle p-5">
+		<h1 class="text-center">Catégorie :
+			{{category.name|upper}}</h1>
+		<div class="d-flex flex-column">
+			<h2>Les articles de cette catégorie sont :</h2>
+			<ul>
+				{# {{ dump(category) }} #}
+				{% for articles in category.articles %}
+					<li>
+						<a href="{{ path('article_item', { id:articles.id }) }}">
+							{{ articles.title|capitalize }}</a> - date de rédaction : {{ articles.dateCreated|date('d/m/Y') }}
+							{# il récupère automatiquement le getter de date_created qui s'appelle dateCreated, et on lui met le filtre |date avec ses paramètres #}
+					</li>
+				{% endfor %}
+			</ul>
+		</div
+	</div>
 {% endblock %}
