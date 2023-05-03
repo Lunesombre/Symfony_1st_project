@@ -43,6 +43,9 @@ class ArticleCrudMakerController extends AbstractController
     #[Route('/{id}', name: 'app_article_crud_maker_show', methods: ['GET'])]
     public function show(Article $article): Response
     {
+        // check if "view" access is granted via Voters
+        $this->denyAccessUnlessGranted('View article', $article);
+
         return $this->render('article_crud_maker/show.html.twig', [
             'article' => $article,
         ]);
@@ -51,6 +54,9 @@ class ArticleCrudMakerController extends AbstractController
     #[Route('/{id}/edit', name: 'app_article_crud_maker_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Article $article, ArticleRepository $articleRepository): Response
     {
+        // check if "edit" access is granted via Voters
+        $this->denyAccessUnlessGranted('Edit article', $article);
+
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 

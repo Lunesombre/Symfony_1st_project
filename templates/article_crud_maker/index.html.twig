@@ -10,6 +10,7 @@
             <tr>
                 <th>Id</th>
                 <th>Title</th>
+                <th>Author</th>
                 <th>Date_created</th>
                 <th>Visible</th>
                 <th>Content</th>
@@ -21,6 +22,7 @@
             <tr>
                 <td>{{ article.id }}</td>
                 <td>{{ article.title }}</td>
+                <td>{{ article.author.username }}</td>
                 <td>{{ article.dateCreated ? article.dateCreated|date('d-m-Y') : '' }}</td>
                 <td>{{ article.visible ? 'Yes' : 'No' }}</td>
                 <td>{{ article.content }}</td>

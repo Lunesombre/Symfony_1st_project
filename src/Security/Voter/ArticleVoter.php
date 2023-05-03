@@ -78,6 +78,6 @@ class ArticleVoter extends Voter
             return true;
         }
         // dans la doc:  return !$article->isPrivate(); mais j'ai pas trop compris
-
+        return false;
     }
 }
