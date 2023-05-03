@@ -38,7 +38,7 @@ class ArticleVoter extends Voter
         
         // if the user is anonymous, do not grant access
         if (!$user instanceof UserInterface)
-        // NB: pq pas une instance de User ???
+        // NB: pq pas une instance de User -> c'est comme ça depuis Symfony 5.4
         {
             return false;
         }

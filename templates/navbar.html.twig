@@ -12,14 +12,30 @@
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path('categories_list') }}">Catégories</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
-				</li>
-				{# {% if %}
-				{% endif %} #}
+				{% if app.user %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_login') }}">Se déconnecter</a>
+					</li>
+				{% else %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+					</li>
+				{% endif %}
+				{% if app.user %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_article_crud_maker_index') }}">Rédaction</a>
+					</li>
+				{% endif %}
 				<li>
 					<a class="nav-link" href="{{ path('newsletter_subscribe') }}">Souscrire à la newsletter</a>
 				</li>
+				{% if app.user %}
+					{% if 'ROLE_ADMIN' in app.user.getRoles %}
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('admin') }}">Admin</a>
+						</li>
+					{% endif %}
+				{% endif %}
 			</ul>
 			<form class="d-flex" role="search">
 				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
