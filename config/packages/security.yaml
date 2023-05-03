@@ -36,6 +36,11 @@ security:
         - { path: ^/article/crud/maker/, roles : IS_AUTHENTICATED_FULLY }
         # - { path: ^/profile, roles: ROLE_USER }
 
+    # Stratégie de décision pour les Voters définie ci-dessous :
+    access_decision_manager:
+        strategy: unanimous
+        allow_if_all_abstain: false
+
 when@test:
     security:
         password_hashers:
