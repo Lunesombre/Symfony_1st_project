@@ -14,6 +14,7 @@ class AppFixtures extends Fixture
 {
     private const NB_ARTICLES = 50;
     private const NB_CATEGORY = 10;
+    private const NB_TEST_USERS = 4;
 
     public function __construct(private UserPasswordHasherInterface $passwordHasher)
     {
@@ -34,6 +35,19 @@ class AppFixtures extends Fixture
             $manager->persist($category);
         }
 
+        for ($i = 0, $regularUsers = []; $i < self::NB_TEST_USERS; $i++) {
+            $regularUser = new User();
+            $hashedPassword = $this->passwordHasher->hashPassword(
+                $regularUser,
+                'regular'
+            );
+            $regularUser
+                ->setPassword($hashedPassword)
+                ->setEmail($faker->userName() . '@test.com');
+            $regularUsers[] = $regularUser;
+            $manager->persist($regularUser);
+        }
+
         for ($i = 0; $i < self::NB_ARTICLES; $i++) {
             $article = new Article();
             $article
@@ -41,11 +55,11 @@ class AppFixtures extends Fixture
                 ->setDateCreated($faker->dateTimeBetween('-2 years'))
                 ->setVisible($faker->boolean(80))
                 ->setContent($faker->realTextBetween(200, 500))
-                ->setCategory(($categories[$faker->numberBetween(0, count($categories) - 1)]));
+                ->setCategory($categories[$faker->numberBetween(0, count($categories) - 1)])
+                ->setAuthor($regularUsers[$faker->numberBetween(0, count($regularUsers) - 1)]);
 
             $manager->persist($article);
         }
-        $manager->flush();
 
         $admin = new User();
         $hashedPassword = $this->passwordHasher->hashPassword(
@@ -59,16 +73,6 @@ class AppFixtures extends Fixture
 
         $manager->persist($admin);
 
-        $regular_user = new User();
-        $hashedPassword = $this->passwordHasher->hashPassword(
-            $regular_user,
-            'testRegular'
-        );
-        $regular_user
-            ->setPassword($hashedPassword)
-            ->setEmail('regularusertest@test.com');
-
-        $manager->persist($regular_user);
 
         $manager->flush();
     }
