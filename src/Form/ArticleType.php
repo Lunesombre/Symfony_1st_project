@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +22,12 @@ class ArticleType extends AbstractType
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name'
-            ]);
+            ])
+            ->add('author', EntityType::class, [
+                'class' => User::class,
+                'choice_label' =>'email',
+            ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
