@@ -16,11 +16,9 @@ class ArticleVoter extends Voter
     public const VIEW = 'View article';
     public const DELETE = 'Delete article';
 
-    private $security;
 
-    public function __construct(Security $security)
+    public function __construct(private Security $security)
     {
-        $this->security = $security;
     }
 
     protected function supports(string $attribute, mixed $subject): bool
@@ -46,11 +44,16 @@ class ArticleVoter extends Voter
         }
 
         // l'admin a le droit de modifier et voir les articles quoiqu'il arrive
-        if ($this->security->isGranted('ROLE_ADMIN') || $subject->getAuthor() === $user) {
+        if ($this->security->isGranted('ROLE_ADMIN')) {
+            return true;
+        }
+        
+        if ($attribute === self::EDIT && $subject->getAuthor() === $user)
+        {
             return true;
         }
 
-        // ancienne version, pas nécessaire vu qu'on vérifie la même chose pour les trois méthodes, à savoir si l'utilisateur connecté est l'auteur
+        // ancienne version, pas nécessaire vu que pour le moment on vérifie la même chose pour les trois méthodes, à savoir si l'utilisateur connecté est l'auteur
         // $article = $subject;
         // // ... (check conditions and return true to grant permission) ...
         // switch ($attribute) {
@@ -72,22 +75,22 @@ class ArticleVoter extends Voter
         return false;
     }
 
-    private function canEdit(Article $article, User $user): bool
-    {
-        return $user === $article->getAuthor();
-    }
+    // private function canEdit(Article $article, User $user): bool
+    // {
+    //     return $user === $article->getAuthor();
+    // }
 
-    private function canView(Article $article, User $user): bool
-    {
-        if ($this->canEdit($article, $user)) {
-            return true;
-        }
-        // dans la doc:  return !$article->isPrivate(); mais j'ai pas trop compris
-        return false;
-    }
+    // private function canView(Article $article, User $user): bool
+    // {
+    //     if ($this->canEdit($article, $user)) {
+    //         return true;
+    //     }
+    //     // dans la doc:  return !$article->isPrivate(); mais j'ai pas trop compris
+    //     return false;
+    // }
 
-    private function canDelete(Article $article, User $user): bool
-    {
-        return $user === $article->getAuthor();
-    }
+    // private function canDelete(Article $article, User $user): bool
+    // {
+    //     return $user === $article->getAuthor();
+    // }
 }
