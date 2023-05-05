@@ -23,7 +23,7 @@ class SubscribedConfirmation
         ->from('admin@1st_project.com')
         ->to($newsletter->getEmail())
         ->subject('Inscription à la newsletter')
-        ->text($this->urlGenerator->generate(
+        ->text('Bonjour '.$newsletter->getEmail().'! Veuillez suivre ce lien pour finaliser votre inscription : '.$this->urlGenerator->generate(
             'newsletter_confirm',
             ['token' => $newsletter->getToken()],
             UrlGeneratorInterface::ABSOLUTE_URL

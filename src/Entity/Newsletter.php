@@ -6,7 +6,6 @@ use App\Repository\NewsletterRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\String\ByteString;
 
 #[ORM\Entity(repositoryClass: NewsletterRepository::class)]
 #[UniqueEntity('email', message: "L'email {{ value }} existe déjà.")]
