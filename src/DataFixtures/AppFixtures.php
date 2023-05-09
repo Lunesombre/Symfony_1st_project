@@ -2,9 +2,11 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\ApiToken;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\User;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -59,6 +61,12 @@ class AppFixtures extends Fixture
 
         $manager->persist($admin);
 
+        $token = new ApiToken();
+        $token
+            ->setName('TestToken')
+            ->setToken('sdf4hgdjk8jthrgd653q2dgf');
+
+        $manager->persist($token);
 
         $manager->flush();
     }
