@@ -11,7 +11,8 @@ class SubscribedConfirmation
 {
     public function __construct(
         private MailerInterface $mailer,
-        private UrlGeneratorInterface $urlGenerator
+        private UrlGeneratorInterface $urlGenerator,
+        private string $adminEmail
         )
     {
         
@@ -20,7 +21,7 @@ class SubscribedConfirmation
     public function send(Newsletter $newsletter)
     {
         $email = (new Email())
-        ->from('admin@1st_project.com')
+        ->from($this->adminEmail)
         ->to($newsletter->getEmail())
         ->subject('Inscription à la newsletter')
         ->text('Bonjour '.$newsletter->getEmail().'! Veuillez suivre ce lien pour finaliser votre inscription : '.$this->urlGenerator->generate(
