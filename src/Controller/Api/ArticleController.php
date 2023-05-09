@@ -13,6 +13,8 @@ class ArticleController extends AbstractController
     public function index(ArticleRepository $articleRepository): Response
     {
         $articles = $articleRepository->findAll();
-        return $this->json($articles);
+        return $this->json($articles, context: [
+            'groups' => 'articles:read'
+        ]);
     }
 }
